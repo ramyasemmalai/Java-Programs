@@ -1,0 +1,22 @@
+import java.util.*;
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner in=new Scanner(System.in);
+        System.out.print("Enter num = ");
+        int n=in.nextInt();
+        System.out.print("Enter length = ");
+        int len=in.nextInt();
+        multable(n,len,1);
+    }
+    static void multable(int n,int l,int s)
+    {
+        if(s>l)
+        {
+            return;
+        }
+        System.out.println(s +" * "+n+" = "+(s*n));
+        multable(n,l,s+1);
+    }
+}

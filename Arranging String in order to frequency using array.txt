@@ -1,0 +1,68 @@
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		System.out.print("Enter name = ");
+		String name=in.next();
+		name=name.toLowerCase();
+		System.out.println("Result = "+nameFunction(name));
+	}
+	static String nameFunction(String name)
+	{
+	    int frequency[]=new int[26];
+		char alpha[]=new char[26];
+		int ar[]=new int[26];
+		for(int i=0;i<name.length();i++)
+		{
+		    int j=(int)(name.charAt(i))-96;
+		    frequency[j]++;
+		}
+		int k=0;
+		for(int i=0;i<26;i++)
+		{
+		    if(frequency[i]!=0)
+		    {
+		        ar[k]=frequency[i];
+		        alpha[k]=(char)(i+96);
+		        k++;
+		    }
+		}
+		for(int i=0;i<k-1;i++)
+		{
+		    for(int j=i+1;j<k;j++)
+		    {
+		        if(ar[i]>ar[j])
+		        {
+		            int temp1=ar[j];
+		            ar[j]=ar[i];
+		            ar[i]=temp1;
+		            char temp2=alpha[j];
+		            alpha[j]=alpha[i];
+		            alpha[i]=temp2;
+		        }
+		    }
+		}
+		for(int i=0;i<k-1;i++)
+		{
+		    for(int j=i+1;j<k;j++)
+		    {
+		        if(ar[i]==ar[j] && (int)alpha[i]>(int)alpha[j])
+		        {
+		            char temp2=alpha[j];
+		            alpha[j]=alpha[i];
+		            alpha[i]=temp2;
+		        }
+		    }
+		}
+		String result="";
+		for(int i=0;i<k;i++)
+		{
+		    for(int j=0;j<ar[i];j++)
+		    {
+		        result+=alpha[i];
+		    }
+		}
+		return result;
+	}
+}

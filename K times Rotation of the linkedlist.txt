@@ -1,0 +1,49 @@
+import java.util.*;
+class Node{
+    int data;
+    Node next;
+    Node(int d)
+    {
+        data=d;
+        next=null;
+    }
+}
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		int k=in.nextInt();
+		Node head=null;
+		Node temp=null;
+		int d=in.nextInt();
+		while(d!=-1)
+		{
+		    Node nnode=new Node(d);
+		    if(head==null)
+		    {
+		        head=nnode;
+		        temp=head;
+		        
+		    }
+		    else{
+		        temp.next=nnode;
+		        temp=temp.next;
+		    }
+		    d=in.nextInt();
+		}
+		while(k>=1)
+		{
+		    temp.next=head;
+		    temp=head;
+		    head=head.next;
+		    k--;
+		}
+		temp.next=null;
+		temp=head;
+		while(temp!=null)
+		{
+		    System.out.print(temp.data+" ");
+		    temp=temp.next;
+		}
+	}
+}

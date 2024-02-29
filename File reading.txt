@@ -1,0 +1,19 @@
+import java.io.*;
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    try{
+	        File myObj=new File("ramya.txt");
+	        Scanner read=new Scanner(myObj);
+	        while(read.hasNext())
+	        {
+	            System.out.println(read.nextLine());
+	        }
+	        read.close();
+	    }catch(FileNotFoundException e)
+	    {
+	        System.out.println("File not Found");
+	    }
+	}
+}

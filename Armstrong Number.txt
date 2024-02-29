@@ -1,0 +1,31 @@
+import java.util.Scanner;
+public class Main
+{
+    public static void main(String []arg)
+    {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter a number = ");
+        int n=in.nextInt();
+        if(findArmstrong(n)==n)
+        {
+            System.out.println("Given number "+n+" is armstrong number");
+        }
+        else{
+            System.out.println("Given number is not an armstrong number");
+        }
+    }
+    public static int findArmstrong(int n)
+    {
+        String str=String.valueOf(n);
+        int sum=0;
+        for(int i=0;i<str.length();i++)
+        {
+            String s="";
+            s+=str.charAt(i);
+            int x=Integer.parseInt(s);
+            x=(int)Math.pow(x,str.length());
+            sum+=x;
+        }
+        return sum;
+    }
+}

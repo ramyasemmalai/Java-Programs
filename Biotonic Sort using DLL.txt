@@ -1,0 +1,103 @@
+import java.io.*;
+import java.util.*;
+class Node{
+    int data;
+    Node right,left;
+    Node(int d)
+    {
+        data=d;
+        right=null;
+        left=null;
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner input=new Scanner(System.in);
+        int n=input.nextInt();
+        for(int i=0;i<n;i++)
+        {
+           Node ans=biotonic_sort();
+            Node temp=ans;
+            while(temp!=null)
+            {
+                System.out.print(temp.data+" ");
+                temp=temp.right;
+            }
+        }
+    }
+    public static Node biotonic_sort()
+    {
+        Scanner in=new Scanner(System.in);
+        Node newnode;
+        Node head=null;
+        Node last=null;
+        int d=in.nextInt();
+        while(d!=-1)
+        {
+            newnode=new Node(d);
+            if(head==null)
+            {
+                head=newnode;
+                last=head;
+            }
+            else{
+                newnode.left=last;
+                last.right=newnode;
+                last=newnode;
+            }
+            d=in.nextInt();
+        }
+        Node first=head;
+        Node result;
+        Node last1=null;
+        Node head1=null;
+        while(first!=last)
+        {
+            if(first.data<=last.data)
+            {
+                result=new Node(first.data);
+                if(head1==null)
+                {
+                    head1=result;
+                    last1=result;
+                }
+                else{
+                    result.left=last1;
+                    last1.right=result;
+                    last1=result;
+                }
+                first=first.right;
+            }
+            else{
+                result=new Node(last.data);
+                if(head1==null)
+                {
+                    head1=result;
+                    last1=result;
+                }
+                else{
+                    result.left=last1;
+                    last1.right=result;
+                    last1=result;
+                }
+                last=last.left;
+            }
+        }
+        if(first==last)
+        {
+            result=new Node(first.data);
+            if(head1==null)
+            {
+                head1=result;
+                last1=result;
+            }
+            else{
+                result.left=last1;
+                last1.right=result;
+                last1=result;
+            }
+        }
+        return head1;
+    }
+}

@@ -1,0 +1,54 @@
+import java.util.*;
+class node{
+    int data;
+    node l,r;
+    node(int d)
+    {
+        this.data=d;
+        this.l=null;
+        this.r=null;
+    }
+}
+public class Main
+{
+    static int min=Integer.MAX_VALUE;
+    static int max=Integer.MIN_VALUE;
+    static Map<Integer,ArrayList<Integer>> map = new HashMap<Integer,ArrayList<Integer>>();
+	public static void main(String[] args) {
+		node root=new node(3);
+		root.l=new node(5);
+		root.l.l=new node(2);
+		root.l.r=new node(1);
+		root.r=new node(7);
+		root.r.l=new node(4);
+		root.r.r=new node(8);
+		trav(root,0);
+		for(int j=min;j<=max;j++)
+	    {
+	        ArrayList<Integer>temp=new ArrayList<Integer>(map.get(j));
+	        System.out.print(temp);
+	    }
+	}
+	
+	static void trav(node root,int c)
+	{
+	    if(root!=null)
+	    {
+	        if(min>c)
+	        {
+	            min=c;
+	        }
+	        if(max<c)
+	        {
+	            max=c;
+	        }
+	        if(!map.containsKey(c))
+	        {
+	            map.put(c,new ArrayList());
+	        }
+	        map.get(c).add(root.data);
+	        trav(root.l,c-1);
+	        trav(root.r,c+1);
+	    }
+	}
+}

@@ -1,0 +1,73 @@
+import java.util.*;
+public class Main
+{
+    static HashMap<String,Integer> map=new HashMap<String,Integer>();
+	public static void main(String[] args) {
+	    Scanner in=new Scanner(System.in);
+	    System.out.print("Name = ");
+		String str=in.next();
+		str=str.toLowerCase();
+		System.out.println("Output = "+nameChange(str));
+	}
+	static String nameChange(String str)
+	{
+	    for(int i=0;i<str.length();i++)
+		{
+		    String ch="";
+		    ch+=str.charAt(i);
+		    if(map.containsKey(ch))
+		    {
+		        map.replace(ch,map.get(ch)+1);
+		    }
+		    else{
+		        map.put(ch,1);
+		    }
+		}
+		int k=0;
+		int ar[]=new int[100];
+		String alpha[]=new String[100];
+		for(Map.Entry m:map.entrySet())
+		{
+		    ar[k]=(int)m.getValue();
+		    alpha[k]=(String)m.getKey();
+		    k++;
+		}
+		
+		for(int i=0;i<k-1;i++)
+		{
+		    for(int j=i+1;j<k;j++)
+		    {
+		        if(ar[i]>ar[j])
+		        {
+		            int temp1=ar[j];
+		            ar[j]=ar[i];
+		            ar[i]=temp1;
+		            String temp2=alpha[j];
+		            alpha[j]=alpha[i];
+		            alpha[i]=temp2;
+		        }
+		    }
+		}
+		for(int i=0;i<k-1;i++)
+		{
+		    for(int j=i+1;j<k;j++)
+		    {
+		        if(ar[i]==ar[j] && (int)(alpha[i].charAt(0))>(int)(alpha[j].charAt(0)))
+		        {
+		            String temp2=alpha[j];
+		            alpha[j]=alpha[i];
+		            alpha[i]=temp2;
+		        }
+		    }
+		}
+		String result="";
+		for(int i=0;i<k;i++)
+		{
+		    for(int j=0;j<ar[i];j++)
+		    {
+		        result+=alpha[i];
+		    }
+		}
+		return result;
+	}
+}

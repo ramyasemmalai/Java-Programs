@@ -1,0 +1,63 @@
+import java.util.*;
+public class Main{
+    static int weight;
+    public static void main(String []args)
+    {
+        Scanner in=new Scanner(System.in);
+        System.out.print("Enter name 1 = ");
+        String str1=in.next();
+        str1=str1.toLowerCase();
+        System.out.print("Enter name 2 = ");
+        String str2=in.next();
+        str2=str2.toLowerCase();
+        System.out.println("Output = "+Flames(str1,str2));
+    }
+    static char Flames(String str1,String str2)
+    {
+        char ar1[]=str2.toCharArray();
+        int count=0;
+        for(int i=0;i<str1.length();i++)
+        {
+            for(int j=0;j<ar1.length;j++)
+            {
+                if(str1.charAt(i)==ar1[j])
+                {
+                    count++;
+                    for(int k=j;k<ar1.length-1;k++)
+                    {
+                        ar1[k]=ar1[k+1];
+                    }
+                    ar1[ar1.length-1]='\0';
+                    break;
+                }
+            }
+        }
+        weight=(str1.length()+str2.length())-(count*2);
+        System.out.println("Weight = "+weight);
+        String flames="FLAMES";
+        char flames1[]=flames.toCharArray();
+        int len=flames1.length;
+        int count1=0;
+        boolean flag=false;
+        int i=0;
+            while(len>1)
+            {
+                count1++;
+                if(count1==weight)
+                {
+                    for(int j=i;j<len-1;j++)
+                    {
+                        flames1[j]=flames1[j+1];
+                    }
+                    len--;
+                    count1=1;
+                }
+                i++;
+                if(i>=len)
+                {
+                    i%=len;
+                }
+            }
+            return flames1[0];
+    }
+}

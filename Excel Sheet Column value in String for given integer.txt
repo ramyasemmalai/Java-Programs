@@ -1,0 +1,34 @@
+import java.util.*;
+public class Main{
+    static List<Integer>list=new LinkedList<Integer>();
+    public static void main(String []arg)
+    {
+        Scanner in=new Scanner(System.in);
+        System.out.print("Enter an index = ");
+        int col=in.nextInt();
+        value(col);
+        String result="";
+        for(int i=list.size()-1;i>=0;i--)
+        {
+            result+=(char)(64+list.get(i));
+        }
+        System.out.println("Output = "+result);
+    }
+    static void value(int count)
+    {
+        if(count<=26)
+        {
+            list.add(count);
+            return;
+        }
+        int i=0;
+        while(count>26)
+        {
+            count-=26;
+            i++;
+        }
+        list.add(count);
+        value(i);
+    }
+    
+}

@@ -1,0 +1,75 @@
+import java.io.*;
+import java.util.*;
+class Node{
+    int data;
+    Node next;
+    Node(int d)
+    {
+        data=d;
+        next=null;
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner input=new Scanner(System.in);
+        int n=input.nextInt();
+        int d;
+        Node head=null;
+        Node last=null;
+        for(int i=0;i<n;i++)
+        {
+            d=input.nextInt();
+            Node newnode=new Node(d);
+            if(head==null)
+            {
+                head=newnode;
+                last=head;
+            }
+            else{
+                if(i==n-1)
+                {
+                    Node temp=head;
+                    while(temp!=null)
+                    {
+                        if(d==temp.data)
+                        {
+                            last.next=temp;
+                            break;
+                        }
+                    temp=temp.next;
+                    }
+                }
+                else{
+                    last.next=newnode;
+                    last=newnode;
+                }
+            }
+        }
+        String ans=loop(head);
+        System.out.println(ans);
+    }
+    public static String loop(Node head)
+    {
+        Node slow=head;
+        Node fast=head;
+        fast=fast.next.next;
+        while(slow!=null)
+        {
+            if(slow==fast)
+            {
+                return "YES";
+            }
+            else{
+                slow=slow.next;
+            }
+            try{
+                fast=fast.next.next;
+            }
+            catch(NullPointerException e){
+                return "NO";
+            }
+        }
+        return "NO";
+    }
+}

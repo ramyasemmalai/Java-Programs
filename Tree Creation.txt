@@ -1,0 +1,58 @@
+import java.util.*;
+class node{
+    int data;
+    node left,right;
+    node(int d)
+    {
+        this.data=d;
+        this.left=null;
+        this.right=null;
+    }
+}
+public class Main{
+    static Scanner in=new Scanner(System.in);
+    static Stack<node>stk=new Stack<>();
+    public static void main(String []arg)
+    {
+        System.out.print("Enter -1 for no node\nEnter root = ");
+        node root=treeCreation();
+        preorder(root);
+        stk.push(root);
+        while(!stk.isEmpty())
+        {
+            System.out.println(stk.peek().data);
+            node temp=stk.pop();
+            if(temp.left!=null)
+            {
+                stk.push(temp.left);
+            }
+            if(temp.right!=null)
+            {
+                stk.push(temp.right);
+            }
+        }
+    }
+    static void preorder(node root)
+    {
+        if(root!=null)
+        {
+            System.out.print(root.data+" ");
+            preorder(root.left);
+            preorder(root.right);
+        }
+    }
+    static node treeCreation()
+    {
+        int data=in.nextInt();
+        if(data==-1)
+        {
+            return null;
+        }
+        node nnode=new node(data);
+        System.out.print("Enter left of "+nnode.data+" = ");
+        nnode.left=treeCreation();
+        System.out.print("Enter left of "+nnode.data+" = ");
+        nnode.right=treeCreation();
+        return nnode;
+    }
+}

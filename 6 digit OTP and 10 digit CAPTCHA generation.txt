@@ -1,0 +1,57 @@
+import java.util.*;
+public class Main
+{
+    static Scanner in=new Scanner(System.in);
+	public static void main(String[] args) {
+		System.out.println("Select operation (not case sensitive)\n\nOTP Generation\nCAPTCHA Generation\nCash Deposit\nCash Withdrawal\nStop\n");
+		while(true)
+		{
+		    System.out.print("Enter your choice = ");
+		    String str=in.nextLine();
+		    str=str.toLowerCase();
+		    switch(str)
+		    {
+		        case "otp generation":
+		            System.out.println("OTP = "+otp_generation()+"\n");
+		            break;
+		        case "captcha generation":
+		            System.out.println("CAPTCHA = "+captcha_generation()+"\n");
+		            break;
+		        case "cash deposit":
+		            System.out.println(cash()+" Amount deposited to your account successfully\n");
+		            break;
+		        case "cash withdrawal":
+		            System.out.println("Successfully withdraw "+cash()+" from your account\n");
+		            break;
+		        case "stop":
+		            return;
+		        default:
+		            System.out.println("Invalid input\n");
+		    }
+		}
+	}
+	static int otp_generation()
+	{
+	    return (int)(Math.random()*(999999-100000+1))+100000;
+	}
+	static String captcha_generation()
+	{
+	    Random rd=new Random();
+	    String str=new String();
+	    String arr="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz!@#$%&";
+	    while(str.length()<10)
+	    {
+	        int x=rd.nextInt(67);
+	        str+=arr.charAt(x);
+	    }
+	    return str;
+	}
+	static int cash()
+	{
+	    System.out.print("Enter amount = ");
+	    double amount=in.nextDouble();
+	    in.nextLine();
+	    amount=amount+(amount*0.18);
+	    return (int)amount;
+	}
+}
