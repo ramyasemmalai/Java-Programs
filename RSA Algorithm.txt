@@ -1,0 +1,79 @@
+import java.util.*;
+public class Main
+{
+    static Scanner in=new Scanner(System.in);
+    static int p,q,n,pn,e,d,M;
+    static int C,P;
+    public static void main(String []args)
+    {
+        System.out.println("***** 21BCT0427---RAMYA S *****\n");
+        System.out.print("Enter P = ");
+        p=in.nextInt();
+        System.out.print("Enter q = ");
+        q=in.nextInt();
+        System.out.print("Enter e = ");
+        e=in.nextInt();
+        System.out.print("Enter M = ");
+        M=in.nextInt();
+        System.out.println("\n----- KEY GENERATION -----\n");
+        keyGeneration();
+        System.out.println("\n----- ENCRYPTION -----\n");
+        C = Encryption(e,n,M);
+        System.out.println("Ciphertext = "+C);
+        System.out.println("\n----- DECRYPTION -----\n");
+        P = Decryption(d,n,C);
+        System.out.println("Plaintext = "+P);
+    }
+    static int pow(int a,int b,int n)
+    {
+        int sum=a;
+        while(b>1)
+        {
+            sum*=a;
+            sum%=n;
+            b--;
+        }
+        return sum;
+    }
+    static int Decryption(int d,int n,int c)
+    {
+        System.out.println("Private Key = ["+d+","+n+"]");
+        System.out.println("Ciphertext = "+c);
+        int m=pow(c,d,n);
+        return m;
+    }
+    static int Encryption(int a,int b,int m)
+    {
+        System.out.println("Public Key = ["+a+","+b+"]");
+        System.out.println("Plaintext = "+m);
+        int c=pow(m,a,b);
+        return c;
+    }
+    static void keyGeneration()
+    {
+        n=p*q;
+        System.out.println("n = "+n);
+        pn=(p-1)*(q-1);
+        System.out.println("pi(n) = "+pn);
+        d=inverseModular(pn,e,0,1);
+        if(d<0)
+        {
+            d+=pn;
+        }
+        System.out.println("d = "+d);
+        System.out.println("Public Key = ["+e+","+n+"]");
+        System.out.println("Private Key = ["+d+","+n+"]");
+    }
+    static int inverseModular(int a,int b,int s1,int s2)
+    {
+        if(b==0)
+        {
+            return s1;
+        }
+        int qu=a/b;
+        int r=a%b;
+        int s=s1-(qu*s2);
+        s1 =inverseModular(b, r, s2, s);
+        return s1;
+    }
+}

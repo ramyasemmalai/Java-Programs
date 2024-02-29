@@ -1,0 +1,296 @@
+import java.util.*;
+public class Main
+{
+    public static void main(String []args)
+    {
+        Scanner input=new Scanner(System.in);
+        System.out.println("21BCT0427-----RAMYA S");
+        System.out.print("Enter the plain text = ");
+        String plaintext=input.nextLine();
+        System.out.print("Enter the key = ");
+        String key=input.nextLine();
+        String newtxt="";
+        String ciphertxt="";
+        char [][]mat=new char[5][5];
+        int k=0;
+        int count=0;
+        int p=0;int q=0;
+        while(k<key.length())
+        {
+            if(key.charAt(k)=='j'||key.charAt(k)=='i')
+            {
+                count++;
+            }
+            if(count==2)
+            {
+                k++;
+                continue;
+            }
+            else
+            {
+                mat[p][q]=key.charAt(k);
+                q++;
+                if(q==5)
+                {
+                    p++;q=0;
+                }
+            }
+            k++;
+        }
+        int ascii=97;
+        for(int i=q;i<5;i++)
+        {
+                for(int m=0;m<key.length();m++)
+                    {
+                        if(key.charAt(m)==(char)(ascii))
+                        {
+                            ascii++;
+                            continue;
+                        }
+                    }
+                    if(ascii==106)
+                    {
+                        ascii++;
+                        continue;
+                    }
+                    mat[p][i]=(char)(ascii);
+                    ascii++;
+        }
+        for(int i=p+1;i<5;i++)
+        {
+            for(int j=0;j<5;j++)
+            {
+                if(ascii==106)
+                {
+                    ascii++;
+                }
+                    for(int m=0;m<key.length();m++)
+                    {
+                        if(key.charAt(m)==(char)(ascii))
+                        {
+                            ascii++;
+                            m=-1;
+                            continue;
+                        }
+                    }
+                    mat[i][j]=(char)(ascii);
+                    ascii++;
+            }
+        }
+        System.out.println("5 X 5 MATRIX : ");
+        for(int i=0;i<5;i++)
+        {
+            for(int j=0;j<5;j++)
+            {
+                System.out.print(mat[i][j]+" ");
+            }
+            System.out.println();
+        }
+        int i=0;int j=1;
+                while(j<plaintext.length())
+                {
+                    if(plaintext.charAt(i)==plaintext.charAt(j))
+                    {
+                        newtxt+=(char)plaintext.charAt(i);
+                        newtxt+=(char)(120);
+                        i=j;
+                        j++;
+                    }
+                    else{
+                        newtxt+=(char)plaintext.charAt(i);
+                        newtxt+=(char)plaintext.charAt(j);
+                        i+=2;
+                        j+=2;
+                    }
+                }
+                if(j==plaintext.length())
+                {
+                     newtxt+=(char)plaintext.charAt(j-1);   
+                     newtxt+=(char)(120);
+                }
+                i=0;j=1;
+                int col1=0;int col2=0;int row1=0;int row2=0;
+                for(int n=0;n<newtxt.length()/2;n++)
+                {
+                    char a=newtxt.charAt(i);
+                    i+=2;
+                    char b=newtxt.charAt(j);
+                    j+=2;
+                    int count1=0;
+                    for(int x=0;x<5;x++)
+                    {
+                        for(int y=0;y<5;y++)
+                        {
+                            if(a=='j'||b=='j')
+                            {
+                                if(mat[x][y]=='i')
+                                {
+                                    if(a=='j')
+                                    {
+                                        row1=x;col1=y;
+                                        count1++;
+                                    }
+                                    else if(b=='j')
+                                    {
+                                        row2=x;col2=y;
+                                        count1++;
+                                    }
+                                }
+                            }
+                            if(a==mat[x][y])
+                            {
+                                col1=y;
+                                row1=x;
+                                count1++;
+                            }
+                            if(b==mat[x][y]){
+                                col2=y;
+                                row2=x;
+                                count1++;
+                            }
+                            if(count1==2)
+                            {
+                                break;
+                            }
+                        }
+                        if(count1==2)
+                        {
+                            break;
+                        }
+                    }
+                    if(row1==row2)
+                    {
+                        if(col1==4)
+                        {
+                            ciphertxt+=mat[row1][0];
+                        }
+                        else{
+                            ciphertxt+=mat[row1][col1+1];
+                        }
+                        if(col2==4)
+                        {
+                            ciphertxt+=mat[row2][0];
+                        }
+                        else{
+                            ciphertxt+=mat[row2][col2+1];
+                        }
+                    }
+                    else if(col1==col2)
+                    {
+                        if(row1==4)
+                        {
+                            ciphertxt+=mat[0][col1];
+                        }
+                        else{
+                            ciphertxt+=mat[row1+1][col1];
+                        }
+                        if(row2==4)
+                        {
+                            ciphertxt+=mat[0][col2];
+                        }
+                        else{
+                            ciphertxt+=mat[row2+1][col2];
+                        }
+                    }
+                    else{
+                        ciphertxt+=mat[row1][col2];
+                        ciphertxt+=mat[row2][col1];
+                    }
+                }
+                System.out.println("...ENCRYPTION...");
+                System.out.println("Splitting Text = "+newtxt);
+        System.out.println("Cipher text = "+ciphertxt);
+        //Decryption
+        String plaintxt="";
+        i=0;j=1;
+                for(int n=0;n<ciphertxt.length()/2;n++)
+                {
+                    char a=ciphertxt.charAt(i);
+                    i+=2;
+                    char b=ciphertxt.charAt(j);
+                    j+=2;
+                    int count1=0;
+                    for(int x=0;x<5;x++)
+                    {
+                        for(int y=0;y<5;y++)
+                        {
+                            if(a=='j'||b=='j')
+                            {
+                                if(mat[x][y]=='i')
+                                {
+                                    if(a=='j')
+                                    {
+                                        row1=x;col1=y;
+                                        count1++;
+                                    }
+                                    else if(b=='j')
+                                    {
+                                        row2=x;col2=y;
+                                        count1++;
+                                    }
+                                }
+                            }
+                            if(a==mat[x][y])
+                            {
+                                col1=y;
+                                row1=x;
+                                count1++;
+                            }
+                            if(b==mat[x][y]){
+                                col2=y;
+                                row2=x;
+                                count1++;
+                            }
+                            if(count1==2)
+                            {
+                                break;
+                            }
+                        }
+                        if(count1==2)
+                        {
+                            break;
+                        }
+                    }
+                    if(row1==row2)
+                    {
+                        if(col1==0)
+                        {
+                            plaintxt+=mat[row1][4];
+                        }
+                        else{
+                            plaintxt+=mat[row1][col1-1];
+                        }
+                        if(col2==0)
+                        {
+                            plaintxt+=mat[row2][4];
+                        }
+                        else{
+                            plaintxt+=mat[row2][col2-1];
+                        }
+                    }
+                    else if(col1==col2)
+                    {
+                        if(row1==0)
+                        {
+                            plaintxt+=mat[4][col1];
+                        }
+                        else{
+                            plaintxt+=mat[row1-1][col1];
+                        }
+                        if(row2==0)
+                        {
+                            plaintxt+=mat[4][col2];
+                        }
+                        else{
+                            plaintxt+=mat[row2-1][col2];
+                        }
+                    }
+                    else{
+                        plaintxt+=mat[row1][col2];
+                        plaintxt+=mat[row2][col1];
+                    }
+                }
+                System.out.println("...DECRYPTION...");
+        System.out.println("Plain text = "+plaintxt);
+    }
+}
