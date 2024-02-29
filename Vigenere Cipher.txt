@@ -1,0 +1,45 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner input=new Scanner(System.in);
+	    System.out.print("Enter the Plaintext = ");
+	    String plaintext=input.nextLine();
+	    System.out.print("Enter the key = ");
+		String key=input.nextLine();
+		String ciphertxt="";
+		int i=0;
+		for(int j=0;j<plaintext.length();j++)
+		{
+		    if(i==key.length())
+		    {
+		        i=0;
+		    }
+		    int x = (plaintext.charAt(j)-97) + (key.charAt(i)-97);
+		    i++;
+		    int n = x%26;
+		    ciphertxt+=(char)(n+97);
+		}
+		System.out.println("...ENCRYPTION...");
+		System.out.println("Cipher text = "+ciphertxt);
+		i=0;
+		String plaintxt ="";
+		for(int j=0;j<ciphertxt.length();j++)
+		{
+		    if(i==key.length())
+		    {
+		        i=0;
+		    }
+		    int y = (ciphertxt.charAt(j)-97)-(key.charAt(i)-97);
+		    i++;
+		    if(y<0)
+		    {
+		        y=y+26;
+		    }
+		    int m = y%26;
+		    plaintxt+=(char)(m+97);
+		}
+		System.out.println("...DECRYPTION...");
+		System.out.println("Plain text = "+plaintxt);
+	}
+}
