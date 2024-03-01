@@ -1,0 +1,39 @@
+import java.util.*;
+public class Main
+{
+    static long num;
+    static Scanner in = new Scanner(System.in);
+    static Map<Integer,Long> map=new HashMap<Integer,Long>();
+	public static void main(String[] args) {
+	    System.out.print("Enter the number = ");
+		num = in.nextInt();
+		if(num<0 || num >10000000)
+		{
+		    System.out.println("Enter valid input!!");
+		}
+		else{
+		    System.out.println(ReverseLengthDivisible(num));
+		}
+	}
+	static String ReverseLengthDivisible(long n)
+	{
+	    int count=1;
+	    int mul=10;
+	    while(n>10)
+	    {
+	        map.put(count,n);
+	        n/=mul;
+	        count++;
+	    }
+	    map.put(count,n);
+	    for(Map.Entry m:map.entrySet())
+	    {
+	        int k=(int)m.getKey();
+	        if((long)m.getValue()%k!=0)
+	        {
+	            return "No";
+	        }
+	    }
+	    return "Yes";
+	}
+}
