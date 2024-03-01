@@ -1,0 +1,46 @@
+import java.util.*;
+class node{
+    int data;
+    node l,r;
+    node(int d)
+    {
+        this.data=d;
+        this.l=this.r=null;
+    }
+}
+public class Main
+{
+    static Scanner in=new Scanner(System.in);
+	public static void main(String[] args) {
+	    System.out.print("Enter root = ");
+		node root=createTree();
+		System.out.println("Sum is = "+calculateSum(root,0));
+	}
+	static int calculateSum(node root,int sum)
+	{
+	    if(root==null)
+	    {
+	        return 0;
+	    }
+	    sum=(sum*10)+root.data;
+	    if(root.l!=null || root.r!=null)
+	    {
+	         return calculateSum(root.l,sum)+calculateSum(root.r,sum);
+	    }
+	    return sum;
+	}
+	static node createTree()
+	{
+	    int d=in.nextInt();
+	    if(d==-1)
+	    {
+	        return null;
+	    }
+	    node nnode=new node(d);
+	    System.out.print("Enter left data of "+nnode.data+" = ");
+	    nnode.l=createTree();
+	    System.out.print("Enter right data of "+nnode.data+" = ");
+	    nnode.r=createTree();
+	    return nnode;
+	}
+}
