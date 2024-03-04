@@ -22,10 +22,10 @@ public class Main{
             return;
         }
         int i=0;
-        while(count>26)
+        if(count>26)
         {
-            count-=26;
-            i++;
+            i=(int)count/26;
+            count%=26;
         }
         list.add(count);
         value(i);
