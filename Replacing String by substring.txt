@@ -1,0 +1,51 @@
+import java.util.*;
+public class Main
+{
+    static String replaceString(String s,String s1,String s2)
+    {
+        if(s.length()<s1.length())
+        {
+            return s;
+        }
+        String result=new String();
+        int i=0;
+        int slen=s.length();
+        int slen1=s1.length();
+        while(i<=(slen-slen1))
+        {
+            int j=0;
+            int k=i;
+            while(s.charAt(k)==s1.charAt(j))
+            {
+                if(j==slen1-1)
+                {
+                    break;
+                }
+                j++;
+                k++;
+            }
+            if(j==slen1-1)
+            {
+                i+=slen1;
+                result+=s2;
+            }
+            else{
+                result+=s.charAt(i);
+                i++;
+            }
+        }
+        String result1=replaceString(result,s1,s2);
+        return result1;
+    }
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		System.out.print("Enter s = ");
+		String str=in.next();
+		System.out.print("Enter s1 = ");
+		String s1=in.next();
+		System.out.print("Enter s2 = ");
+		String s2=in.next();
+		System.out.println("After Replacing = "+replaceString(str,s1,s2));
+	}
+}
+
