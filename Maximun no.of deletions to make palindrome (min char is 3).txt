@@ -1,0 +1,37 @@
+import java.util.*;
+public class Main
+{
+    static String str=new String();
+    static Scanner in=new Scanner(System.in);
+	public static void main(String[] args) {
+	    System.out.print("Enter the String = ");
+		str=in.next();
+		str=str.toLowerCase();
+		int i=0;
+		int j=str.length()-1;
+		int result=0;
+		boolean flag=false;
+		while(i<str.length()-2)
+		{
+		    if(str.charAt(i)==str.charAt(j) && i+1!=j)
+		    {
+		        flag=true;
+		        result=str.length()-3;
+		        break;
+		    }
+		    if(i+1==j)
+		    {
+		        j=str.length();
+		        i++;
+		    }
+		    j--;
+		}
+		if(flag==false)
+		{
+		    System.out.println("No Plindrome");
+		}
+		else{
+		    System.out.println("No.of deletion to make palindrome = "+result);
+		}
+	}
+}
