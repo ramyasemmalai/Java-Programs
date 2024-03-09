@@ -1,0 +1,86 @@
+/******************************************************************************
+Minimum rotations to unlock a circular lock
+You are given a lock which is made up of n-different circular rings and each ring 
+has 0-9 digit printed serially on it. Initially all n-rings together show a n-digit 
+integer but there is particular code only which can open the lock. You can rotate each 
+ring any number of time in either direction. You have to find the minimum number of 
+rotation done on rings of lock to open the lock.
+Examples: 
+Input : Input = 2345, Unlock code = 5432 
+Output : Rotations required = 8
+Explanation : 1st ring is rotated thrice as 2->3->4->5
+              2nd ring is rotated once as 3->4
+              3rd ring is rotated once as 4->3
+              4th ring is rotated thrice as 5->4->3->2
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner in=new Scanner(System.in);
+		System.out.print("Enter the input = ");
+		String n=in.next();
+		System.out.print("Enter the unlock code = ");
+		String m=in.next();
+		int result=0;
+		if(n.length()==m.length())
+		{
+		   for(int i=0;i<n.length();i++)
+		   {
+		       String ch1="";
+		       String ch2="";
+		       ch1+=n.charAt(i);
+		       ch2+=m.charAt(i);
+		       result+=(int)Math.min(inFindRotation(Integer.parseInt(ch1),Integer.parseInt(ch2)),deFindRotation(Integer.parseInt(ch1),Integer.parseInt(ch2)));
+		   }
+		}
+		System.out.println("Rotations required = "+result);
+	}
+	static int inFindRotation(int a,int b)
+	{
+	    if(a==b)
+	    {
+	        return 0;
+	    }
+	    int count=0;
+	    while(a!=b)
+	    {
+	        if(a==9)
+	        {
+	            a=0;
+	            count++;
+	        }
+	        if(a==b)
+	        {
+	            break;
+	        }
+	        a++;
+	        count++;
+	    }
+	    return count;
+	}
+	static int deFindRotation(int a,int b)
+	{
+	    if(a==b)
+	    {
+	        return 0;
+	    }
+	    int count=0;
+	    while(a!=b)
+	    {
+	        if(a==0)
+	        {
+	            a=9;
+	            count++;
+	        }
+	        if(a==b)
+	        {
+	            break;
+	        }
+	        a--;
+	        count++;
+	    }
+	    
+	    return count;
+	}
+}
