@@ -1,0 +1,44 @@
+/******************************************************************************
+Minimum increment by k operations to make all elements equal
+You are given an array of n-elements, you have to find the number of operations 
+needed to make all elements of array equal. Where a single operation can increment 
+an element by k. If it is not possible to make all elements equal print -1.
+Example : 
+Input : arr[] = {4, 7, 19, 16},  k = 3
+Output : 10
+Input : arr[] = {4, 4, 4, 4}, k = 3
+Output : 0
+Input : arr[] = {4, 2, 6, 8}, k=3
+Output:-1
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		int max=Integer.MIN_VALUE;
+		System.out.print("Enter the size of an array = ");
+		int n=in.nextInt();
+		System.out.print("Enter k value = ");
+		int k=in.nextInt();
+		int arr[]=new int[n];
+		for(int i=0;i<n;i++)
+		{
+		    arr[i]=in.nextInt();
+		    max=max<arr[i]?arr[i]:max;
+		}
+		System.out.println("Minimum no.of operations = "+minOperation(arr,max,k));
+	}
+	static int minOperation(int ar[],int max,int k)
+	{ int result=0;
+	    for(int i=0;i<ar.length;i++)
+	    {
+	        if((max-ar[i])%k!=0)
+	        {
+	            return -1;
+	        }
+	        result+=(int)((max-ar[i])/k);
+	    }
+	    return result;
+	}
+}

@@ -1,0 +1,52 @@
+/******************************************************************************
+Minimum rooms for m events of n batches with given schedule
+There are n student groups at the school. On each day in school, there 
+are m time slots. A student group may or may not be free during a time slot. 
+We are given n binary string where each binary string is of length m. A character 
+at j-th position in i-th string is 0 if i-th group is free in j-th slot and 1 if 
+i-th group is busy. 
+Our task is to determine the minimum number of rooms needed to hold classes for 
+all groups on a single study day. Note that one room can hold at most one group 
+class in a single time slot.
+Examples:  
+Input : n = 2, m = 7, slots[] = {“0101010”, “1010101”} 
+Output : 1 
+Explanation : Both group can hold their classes in a single room as they have alternative classes.
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner in=new Scanner(System.in);
+		System.out.print("Enter no.of.batches = ");
+		int n=in.nextInt();
+		System.out.print("Enter no.of.events = ");
+		int m=in.nextInt();
+		int max=Integer.MIN_VALUE;
+		String slots[]=new String[n];
+		System.out.print("Enter the Schedules = ");
+		for(int i=0;i<n;i++)
+		{
+		    slots[i]=in.next();
+		}
+		for(int i=0;i<m;i++)
+		{
+		    if(max==n)
+		    {
+		        break;
+		    }
+		    int count=0;
+		    for(int j=0;j<n;j++)
+		    {
+		        if(slots[j].charAt(i)=='1')
+		        {
+		            count++;
+		        }
+		    }
+		    if(max<count){
+		        max=count;
+		    }
+		}
+		System.out.println("Minimum number of room required = "+max);
+	}
+}
