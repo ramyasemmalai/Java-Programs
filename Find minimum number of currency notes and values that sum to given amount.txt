@@ -1,0 +1,56 @@
+/******************************************************************************
+Find minimum number of currency notes and values that sum to given amount
+Given an amount, find the minimum number of notes of different denominations 
+that sum up to the given amount. Starting from the highest denomination note, 
+try to accommodate as many notes as possible for a given amount.
+We may assume that we have infinite supply of notes of values {2000, 500, 200, 100, 50, 20, 10, 5, 1} 
+Examples: 
+Input : 800
+Output : Currency  Count 
+         500 : 1
+         200 : 1
+         100 : 1
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    static Map<Integer,Integer>map=new LinkedHashMap<Integer,Integer>();
+	public static void main(String[] args) {
+	    Scanner in=new Scanner(System.in);
+		initialize();
+		System.out.print("Enter an amount = ");
+		int amount=in.nextInt();
+		for(Map.Entry entry:map.entrySet())
+		{
+		    int k=(int)entry.getKey();
+		    if(amount>=k)
+		    {
+		        int x=(int)amount/k;
+		        amount=amount%k;
+		        map.put(k,x);
+		    }
+		}
+		System.out.println("Maximun no.of currency needed : ");
+		for(Map.Entry entry:map.entrySet())
+		{
+		    if((int)entry.getValue()!=0)
+		    {
+		        System.out.println(entry.getKey()+" : "+entry.getValue());
+		    }
+		}
+	}
+	static void initialize()
+	{
+	    map.put(2000,0);
+		map.put(500,0);
+		map.put(200,0);
+		map.put(100,0);
+		map.put(50,0);
+		map.put(20,0);
+		map.put(10,0);
+		map.put(5,0);
+		map.put(2,0);
+		map.put(1,0);
+	}
+}
