@@ -1,0 +1,29 @@
+/******************************************************************************
+Find the minimum distance in an array
+[1, 2, 3, 4, 5, 6, 7, 4, 1,2, 5 ]
+Output : 4 distance 3
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner in=new Scanner(System.in);
+	    System.out.print("Provide an array size = ");
+		int n=in.nextInt();
+		int ar[]=new int[n];
+		for(int i=0;i<n;i++)
+		{
+		    ar[i]=in.nextInt();
+		}
+		System.out.print("Provide a value that ew need to find distance = ");
+		int val=in.nextInt();
+		for(int i=0;i<n;i++)
+		{
+		    if(ar[i]==val)
+		    {
+		        System.out.println("Minimum distance to "+val+" is = "+i);
+		        break;
+		    }
+		}
+	}
+}

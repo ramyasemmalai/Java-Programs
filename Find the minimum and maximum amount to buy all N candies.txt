@@ -1,0 +1,72 @@
+/******************************************************************************
+Find the minimum and maximum 
+amount to buy all N candies
+In a candy store, there are N different types of candies available and the prices of 
+all the N different types of candies are provided. There is also an attractive offer 
+by the candy store. We can buy a single candy from the store and get at most K other 
+candies (all are different types) for free.
+Find the minimum amount of money we have to spend to buy all the N different candies.
+Find the maximum amount of money we have to spend to buy all the N different candies.
+In both cases, we must utilize the offer and get the maximum possible candies back. 
+If k or more candies are available, we must take k candies for every candy purchase. 
+If less than k candies are available, we must take all candies for a candy purchase.
+Examples: 
+Input :  
+price[] = {3, 2, 1, 4}
+k = 2
+Output :  
+Min = 3, Max = 7
+Explanation :
+Since k is 2, if we buy one candy we can take 
+atmost two more for free.
+So in the first case we buy the candy which 
+costs 1 and take candies worth 3 and 4 for 
+free, also you buy candy worth 2 as well.
+So min cost = 1 + 2 = 3.
+In the second case we buy the candy which 
+costs 4 and take candies worth 1 and 2 for 
+free, also We buy candy worth 3 as well.
+So max cost = 3 + 4 = 7.
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		System.out.print("Enter the no.of candies = ");
+		int candy=in.nextInt();
+		int candyPrice[]=new int[candy];
+		System.out.println("Enter the price of each candy : ");
+		for(int i=0;i<candy;i++)
+		{
+		    candyPrice[i]=in.nextInt();
+		}
+		System.out.print("Provide offer for each purchase = ");
+		int k=in.nextInt();
+		Arrays.sort(candyPrice);
+		System.out.println("Minimum amount need to buy all candies = "+findMin(candyPrice,k));
+		System.out.println("Maximum amount need to buy all candies = "+findMax(candyPrice,k));
+	}
+	static int findMin(int ar[],int k)
+	{
+	    int count=0;
+	    int sum=0;
+	    for(int i=0;i<ar.length-count;i++)
+	    {
+	        sum+=ar[i];
+	        count+=k;
+	    }
+	    return sum;
+	}
+	static int findMax(int ar[],int k)
+	{
+	    int count=0;
+	    int sum=0;
+	    for(int i=ar.length-1;i>=count;i--)
+	    {
+	        sum+=ar[i];
+	        count+=k;
+	    }
+	    return sum;
+	}
+}
