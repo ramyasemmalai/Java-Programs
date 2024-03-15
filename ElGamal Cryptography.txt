@@ -1,0 +1,102 @@
+/******************************************************************************
+ElGamal Cryptography
+Enter q = 11
+Enter a ( alpha ) = 2
+Enter k ( k < q ) = 4
+Enter Xa ( Xa < q ) = 3
+Enter M ( M < q ) = 7
+
+----- KEY GENERATION -----
+
+Public Key = [ 11 , 2 , 8 ]
+Private Key = 3
+
+----- ENCRYPTION -----
+
+Public Key = [ 11 , 2 , 8 ]
+Plaintext = 7
+Ciphertext = [ 5 , 6 ]
+
+----- DECRYPTION -----
+
+Private Key = [ 3 ]
+Ciphertext = [ 5 , 6 ]
+Plaintext = 7
+******************************************************************************/
+import java.util.*;
+public class Main
+{
+    static Scanner in=new Scanner(System.in);
+    public static void main(String []args)
+    {
+        System.out.println("***** 21BCT0427---RAMYA S *****\n");
+        System.out.print("Enter q = ");
+        int q=in.nextInt();
+        System.out.print("Enter a ( alpha ) = ");
+        int a=in.nextInt();
+        System.out.print("Enter k ( k < q ) = ");
+        int k=in.nextInt();
+        System.out.print("Enter Xa ( Xa < q ) = ");
+        int Xa=in.nextInt();
+        System.out.print("Enter M ( M < q ) = ");
+        int M=in.nextInt();
+        System.out.println("\n----- KEY GENERATION -----\n");
+        int key = keyGeneration(a,Xa,q);
+        System.out.println("Public Key = [ "+q+" , "+a+" , "+key+" ]\nPrivate Key = "+Xa);
+        System.out.println("\n----- ENCRYPTION -----\n");
+        int ct[] = Encryption(q,a,key,M,k);
+        System.out.println("Ciphertext = [ "+ct[0]+" , "+ct[1]+" ]");
+        System.out.println("\n----- DECRYPTION -----\n");
+        int p = Decryption(ct,Xa,q);
+        System.out.println("Plaintext = "+p);
+    }
+    static int pow(int a,int b,int n)
+    {
+        int sum=a;
+        while(b>1)
+        {
+            sum*=a;
+            sum%=n;
+            b--;
+        }
+        return sum;
+    }
+    static int Decryption(int ct[],int Xa,int q)
+    {
+        System.out.println("Private Key = [ "+Xa+" ]");
+        System.out.println("Ciphertext = [ "+ct[0]+" , "+ct[1]+" ]");
+        int K=pow(ct[0],Xa,q);
+        int s=inverseModular(q,K,0,1);
+        while(s<0)
+        {
+            s=s+q;
+        }
+        return ((ct[1]%q)*(s)%q);
+    }
+    static int[] Encryption(int q,int a,int key,int M,int k)
+    {
+        System.out.println("Public Key = [ "+q+" , "+a+" , "+key+" ]");
+        System.out.println("Plaintext = "+M);
+        int K=pow(key,k,q);
+        int ciphertext[]=new int[2];
+        ciphertext[0]=pow(a,k,q);
+        ciphertext[1]=(K*M)%q;
+        return ciphertext;
+    }
+    static int keyGeneration(int a,int Xa,int q)
+    {
+        return pow(a,Xa,q);
+    }
+    static int inverseModular(int a,int b,int s1,int s2)
+    {
+        if(b==0)
+        {
+            return s1;
+        }
+        int qu=a/b;
+        int r=a%b;
+        int s=s1-(qu*s2);
+        s1 =inverseModular(b, r, s2, s);
+        return s1;
+    }
+}

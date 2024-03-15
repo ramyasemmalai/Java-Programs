@@ -1,0 +1,122 @@
+/******************************************************************************
+Enter p = 29
+Enter a = 16
+Enter b = 14
+Enter point (x1,y1) : 
+5 25
+Enter point (x2,y2) : 
+12 7
+Lambda = 14
+x3 = 5 y3 = 4
+[5 , 4] Point is falls on the cubic curve
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner in=new Scanner(System.in);
+	    System.out.println("***** 21BCT0427 -->  Ramya S *****");
+		System.out.print("Enter p = ");
+		int p=in.nextInt();
+		System.out.print("Enter a = ");
+		int a=in.nextInt();
+		System.out.print("Enter b = ");
+		int b=in.nextInt();
+		System.out.println("Enter point (x1,y1) : ");
+		int x1=in.nextInt();
+		int y1=in.nextInt();
+		System.out.println("Enter point (x2,y2) : ");
+		int x2=in.nextInt();
+		int y2=in.nextInt();
+		if(check(x1,y1,a,b,p)&&check(x2,y2,a,b,p))
+		{
+		    int h=findLambda(x1,y1,x2,y2,p,a);
+		    System.out.println("Lambda = "+h);
+		    int x3=((int)Math.pow(h,2)-x1-x2);
+		    int y3=(h*(x1-x3)-y1);
+		    while(x3<0)
+		    {
+		        x3+=p;
+		    }
+		    while(y3<0)
+		    {
+		        y3+=p;
+		    }
+		    x3%=p;
+		    y3%=p;
+		    System.out.println("x3 = "+x3+" y3 = "+y3);
+		    if(check(x3,y3,a,b,p))
+		    {
+		        
+		        System.out.println("["+x3+" , "+y3+"] Point is falls on the cubic curve");
+		    }
+		    else{
+		        System.out.println("Point is not falls on the cubic curve");
+		    }
+		}
+		else{
+		    System.out.println("Given points are not fall on cubic curve");
+		}
+	}
+	static int findLambda(int x1,int y1,int x2,int y2,int p,int a1)
+	{
+		int a=0;
+		int b=0;
+		if(x1==x2&&y1==y2)
+		{
+		    a=3*(int)Math.pow(x1,2)+a1;
+	        b=2*y1;
+		}
+		else{
+	        a=y2-y1;
+	        b=x2-x1;
+		}
+	    if(b<0)
+	    {
+	        a=Math.abs(a);
+	        b=Math.abs(b);
+	    }
+	    if(b>p)
+	    {
+	        b=inverseModular(b,p,1,0);
+	    }
+	    else{
+	        b=inverseModular(p,b,0,1);
+	    }
+	    return (a*b)%p;
+	}
+	static boolean check(int x,int y,int a,int b,int p)
+	{
+	    int l=(int)Math.pow(x,3)+(a*x)+b;
+	    while(l<0)
+	    {
+	        l+=p;
+	    }
+	    if((int)Math.pow(y,2)%p==l%p)
+	    {
+	        return true;
+	    }
+	    return false;
+	}
+	static int inverseModular(int a,int b,int s1,int s2)
+	{
+	    if(b==0)
+	    {
+	        return s1;
+	    }
+	    int q=a/b;
+	    int r=a%b;
+	    return inverseModular(b,r,s2,(s1-s2*q));
+	}
+	static int pow(int a,int b,int c)
+	{
+	    int s=a;
+	    while(b>1)
+	    {
+	        s*=a;
+	        s%=c;
+	        b--;
+	    }
+	    return s;
+	}
+}

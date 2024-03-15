@@ -1,0 +1,124 @@
+/************************************************************************************
+Enter p = 11
+Enter a = 1
+Enter b = 1
+
+(4*a^2 + 27*b^3 mod p) !=0 --> Condition satisfied
+
+
+  ---------------------------------------------
+ | Points    |   y^2 mod p = x^3+a*x+b mod p  |
+  ---------------------------------------------
+ | (0,1)    |       Satisfied                  |
+  ---------------------------------------------
+ | (0,10)    |       Satisfied                  |
+  ---------------------------------------------
+ | (1,5)    |       Satisfied                  |
+  ---------------------------------------------
+ | (1,6)    |       Satisfied                  |
+  ---------------------------------------------
+ | (2,0)    |       Satisfied                  |
+  ---------------------------------------------
+ | (3,3)    |       Satisfied                  |
+  ---------------------------------------------
+ | (3,8)    |       Satisfied                  |
+  ---------------------------------------------
+ | (4,5)    |       Satisfied                  |
+  ---------------------------------------------
+ | (4,6)    |       Satisfied                  |
+  ---------------------------------------------
+ | (6,5)    |       Satisfied                  |
+  ---------------------------------------------
+ | (6,6)    |       Satisfied                  |
+  ---------------------------------------------
+ | (8,2)    |       Satisfied                  |
+  ---------------------------------------------
+ | (8,9)    |       Satisfied                  |
+  ---------------------------------------------
+************************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner in=new Scanner(System.in);
+	    System.out.println("***** 21BCT0427 --> Ramya S *****");
+		System.out.print("Enter p = ");
+		int p=in.nextInt();
+		System.out.print("Enter a = ");
+		int a=in.nextInt();
+		System.out.print("Enter b = ");
+		int b=in.nextInt();
+		if(check(a,b,p))
+		{
+		    System.out.println("\n(4*a^2 + 27*b^3 mod p) !=0 --> Condition satisfied\n");
+		    int x[]=findX(a,b,p);
+		    int y[]=findY(p);
+		    System.out.println("\n  ---------------------------------------------");
+		    System.out.println(" | Points    |   y^2 mod p = x^3+a*x+b mod p  |");
+		    System.out.println("  ---------------------------------------------");
+		    for(int i=0;i<p;i++)
+		    {
+		        for(int j=0;j<p;j++)
+		        {
+		            if(x[i]==y[j])
+		            {
+		                System.out.print(" | ("+i+","+j+")    |   ");
+		                if(checkCondition(i,j,a,b,p))
+		                {
+		                    System.out.println("    Satisfied                  |");
+		                    System.out.println("  ---------------------------------------------");
+		                }
+		            }
+		        }
+		    }
+		}
+		else{
+		    System.out.println("(4*a^2 + 27*b^3 mod p) !=0 --> Condition not satisfied\nso provide another a b value");
+		}
+	}
+	static boolean checkCondition(int x,int y,int a,int b,int p)
+	{
+	    int l=(int)Math.pow(x,3)+(a*x)+b;
+	    while(l<0)
+	    {
+	        l+=p;
+	    }
+	    if((int)Math.pow(y,2)%p==l%p)
+	    {
+	        return true;
+	    }
+	    return false;
+	}
+	static int[] findX(int a,int b,int p)
+	{
+	    int ar[]=new int[p];
+	    for(int i=0;i<p;i++)
+	    {
+	        int x=(int)Math.pow(i,3)+(i*a)+b;
+	        while(x<0)
+	        {
+	           x+=p;
+	        }
+	        ar[i]=x%p;
+	    }
+	    return ar;
+	}
+	static int[] findY(int p)
+	{
+	    int ar[]=new int[p];
+	    for(int i=0;i<p;i++)
+	    {
+	        int x=(int)Math.pow(i,2);
+	        ar[i]=x%p;
+	    }
+	    return ar;
+	}
+	static boolean check(int a,int b,int p)
+	{
+	    if(((4*(int)Math.pow(a,3))+(27*(int)Math.pow(b,3)))%p==0)
+	    {
+	        return false;
+	    }
+	    return true;
+	}
+}
