@@ -1,0 +1,29 @@
+/******************************************************************************
+Dropping array elements
+Enter n = 5
+Enter array elements : 4 0 2 3 5
+Result = 7
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		System.out.print("Enter n = ");
+		int n=in.nextInt();
+		int ar[]=new int[n];
+		System.out.print("Enter array elements : ");
+		for(int i=0;i<n;i++)
+		{
+		    ar[i]=in.nextInt();
+		}
+		Arrays.sort(ar);
+		int max=ar[n-2];
+		int result=0;
+		for(int i=0;i<n-1;i++)
+		{
+		    result+=(max-ar[i]);
+		}
+		System.out.println("Result = "+result);
+	}
+}

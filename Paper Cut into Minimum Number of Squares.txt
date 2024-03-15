@@ -1,0 +1,40 @@
+/******************************************************************************
+Paper Cut into Minimum Number of Squares
+Given a paper of size, A x B. Task is to cut the paper into squares of any size. 
+Find the minimum number of squares that can be cut from the paper. 
+Examples: 
+Input  : 13 x 29
+Output : 9
+Explanation : 
+2 (squares of size 13x13) + 4 (squares of size 3x3) + 3 (squares of size 1x1) = 9
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner in=new Scanner(System.in);
+		System.out.print("Enter a = ");
+		int a=in.nextInt();
+		System.out.print("Enter b = ");
+		int b=in.nextInt();
+		System.out.println("Paper size = "+a+"x"+b);
+		int max=Math.max(a,b);
+		int min=Math.min(a,b);
+		System.out.println("\nMinimum number of squares = "+findSolution(max,min));
+	}
+	static int findSolution(int a,int b)
+	{
+	    if(a==0)
+	    {
+	        return 0;
+	    }
+	    if(b>a)
+	    {
+	        return findSolution(b,a);
+	    }
+	    else{
+	        System.out.print(b+"x"+b+" ");
+	        return 1+findSolution(a-b,b);
+	    }
+	}
+}
