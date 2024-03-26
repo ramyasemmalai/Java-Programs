@@ -1,0 +1,46 @@
+/*******************************************************************
+ Today you decided to go to the gym. You currently have E energy. 
+ There are N exercises in the gym. Each of these exercises drains 
+ Ai amount of energy from your body.
+You feel tired if your energy reaches 0 or below. Calculate the minimum 
+number of exercises you have to perform such that you become tired. Every 
+unique exercise can only be performed at most 2 times as others also have 
+to use the machines.
+If performing all the exercises does not make you feel tired, return -1.
+Input: e 2 n 3
+arr 1 5 2
+Output: 1
+*******************************************************************/
+import java.util.*;
+public class GymExcercise{
+    public static void main(String[]args){
+        Scanner in=new Scanner(System.in);
+        System.out.print("Enter e =");
+        int e=in.nextInt();
+        System.out.print("Enter n =");
+        int n=in.nextInt();
+        int machine[]=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            machine[i]=in.nextInt();
+        }
+    Arrays.sort(machine);
+    int result=0;
+    for(int i= n-1 ;i>=0;i--)
+    {
+        int count=0;
+        while(e>=machine[i] && count<=1)
+        {
+            count++;
+            e-=machine[i];
+            result++;
+        }
+    }
+    if(e==0){
+        System.out.println(result);
+    }
+    else{
+        System.out.println(-1);
+    }
+}
+}

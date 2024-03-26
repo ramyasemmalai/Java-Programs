@@ -1,0 +1,38 @@
+/******************************************************************************
+if E and F are consequetive then remove and remove the G always
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner in =new Scanner(System.in);
+	    System.out.print("Enter the ticket number = ");
+		String s=in.next();
+		String res="";
+		for(int i=0;i<s.length();i++)
+		{
+		    if(Character.isDigit(s.charAt(i)))
+		    {
+		        res+=s.charAt(i);
+		    }
+		    else{
+		        char ch=s.charAt(i);
+		        if(ch=='E')
+		        {
+		            int j=i+1;
+		            if(j<s.length()&&s.charAt(j)=='F')
+		            {
+		                res+=ch;
+		                res+='F';
+		                i++;
+		            }
+		        }
+		        else if(ch!='G'){
+		            res+=ch;;
+		        }
+		    }
+		    
+		}
+		System.out.println(res);
+	}
+}

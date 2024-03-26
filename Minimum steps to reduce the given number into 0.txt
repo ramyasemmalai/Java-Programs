@@ -1,0 +1,33 @@
+/******************************************************************************
+Minimum steps to reduce the given number into 0
+1. n should not be subtract from itself
+2. find facters and choose max of its facter should not be n
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    System.out.print("Enter the n = ");
+		int n=in.nextInt();
+		System.out.println(decrease(n));
+	}
+	static int decrease(int n)
+	{
+	    if(n==1)
+	    {
+	        return 1;
+	    }
+	    int max=0;
+	    for(int i=1;i<n;i++)
+	    {
+	        if(n%i==0)
+	        {
+	            if(max<i)
+	            {
+	                max=i;
+	            }
+	        }
+	    }
+	    return 1+decrease(n-max);
+	}
+}
