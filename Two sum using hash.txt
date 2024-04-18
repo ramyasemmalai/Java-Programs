@@ -1,0 +1,18 @@
+class Solution {
+	int[] twoSum(int[] A, int target) {
+	    // add your logic here
+		HashMap<Integer,Integer>map=new HashMap<>();
+		int ar[]=new int[2];
+		
+		for(int i=0;i<A.length;i++){
+			int temp=target-A[i];
+			if(map.containsKey(temp)){
+				ar[0]=Math.min(i,map.get(temp));
+				ar[1]=Math.max(i,map.get(temp));
+				return ar;
+			}
+			map.put(A[i],i);
+		}
+		return ar;
+	}
+}
